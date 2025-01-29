@@ -1,1 +1,92 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+        }
+        .time, .weather, .calendar {
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 0;
+        }
+        .weather-widget {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Dashboard</h1>
+    </header>
+
+    <div class="container">
+        <!-- Time Display -->
+        <div class="time">
+            <h2 id="current-time"></h2>
+        </div>
+
+        <!-- Weather Widget -->
+        <div class="weather">
+            <h3>Current Weather</h3>
+            <!-- Example Weather Widget from Weather.com -->
+            <iframe src="https://forecast.weather.gov/MapClick.php?textField1=40.7128&textField2=-74.0060#.Y3V7L3ZBxPY" class="weather-widget"></iframe>
+        </div>
+
+        <!-- Google Calendar Embed -->
+        <div class="calendar">
+            <h3>Your Google Calendar</h3>
+            <iframe src="https://calendar.google.com/calendar/embed?src=brandon.a.ross910%40gmail.com&ctz=America%2FNew_York&bgcolor=%23FFFFFF&color=%23125A12" frameborder="0" scrolling="no"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Display current time
+        function updateTime() {
+            const timeElement = document.getElementById("current-time");
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            timeElement.innerHTML = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime(); // initial call to display time immediately
+    </script>
+
+</body>
+</html>
