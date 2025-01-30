@@ -6,56 +6,16 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Dashboard</title>
 		<style>
+			html,
 			body {
-				font-family: Arial, sans-serif;
-				margin: 0;
-				padding: 0;
-				display: flex;
-				flex-direction: row;
-				background-color: #f0f0f0;
-				height: 100vh;
-			}
-			header {
-				background-color: #333;
-				color: #fff;
-				padding: 10px 0;
 				width: 100%;
-				text-align: center;
-			}
-			.left-section {
-				display: flex;
-				flex-direction: column;
-				justify-content: flex-start;
-				align-items: flex-start;
-				padding: 20px;
-				width: 30%;
-				background-color: #fff;
 				height: 100%;
-			}
-			.right-section {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				width: 70%;
-				background-color: #fff;
-				padding: 20px;
-			}
-			.time {
-				font-size: 3em;
-				margin-bottom: 20px;
-			}
-			.weather {
-				margin-bottom: 20px;
-			}
-			iframe {
-				width: 100%;
-				height: 500px;
-				border: 0;
-			}
-			.weather-widget {
-				width: 100%;
-				max-width: 300px;
-				margin: 20px auto;
+				overflow: hidden;
+				margin: 0;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				transition: background-image 1s ease-in-out;
 			}
 		</style>
 	</head>
@@ -63,15 +23,8 @@
 		<div class="left-section">
 			<!-- Time Display -->
 			<div class="time" id="current-time"></div>
-
-			<!-- Weather Widget -->
-			<div class="weather">
-				<!-- Example Weather Widget from Weather.com -->
-				<iframe
-					src="https://forecast.weather.gov/MapClick.php?textField1=40.7128&textField2=-74.0060#.Y3V7L3ZBxPY"
-					class="weather-widget"
-				></iframe>
-			</div>
+			<!-- Date Display -->
+			<div class="date" id="current-date"></div>
 		</div>
 
 		<div class="right-section">
@@ -79,7 +32,7 @@
 			<iframe
 				src="https://calendar.google.com/calendar/embed?src=brandon.a.ross910%40gmail.com&ctz=America%2FChicago"
 				style="border: 0"
-				width="800"
+				width="1200"
 				height="600"
 				frameborder="0"
 				scrolling="no"
@@ -105,8 +58,29 @@
 				timeElement.innerHTML = formatTime(hours, minutes);
 			}
 
+			// Display current date in format: "Thursday, January 30"
+			function getFormattedDate() {
+				const options = { weekday: 'long', month: 'long', day: 'numeric' };
+				return new Date().toLocaleDateString('en-US', options);
+			}
+
+			// Update the date element
+			document.getElementById('current-date').textContent = getFormattedDate();
+
 			setInterval(updateTime, 1000);
 			updateTime(); // initial call to display time immediately
+
+			// Set a random background image every minute
+			function updateBackground() {
+				const imageUrl = 'https://source.unsplash.com/1920x1080/?nature,landscape';
+				document.body.style.backgroundImage = `url('${imageUrl}')`;
+			}
+
+			// Load the first background image immediately
+			updateBackground();
+
+			// Update background every 60 seconds
+			setInterval(updateBackground, 60000);
 		</script>
 	</body>
 </html>
